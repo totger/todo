@@ -1,0 +1,64 @@
+﻿@model IOrderedEnumerable<TodoApp.Models.Todo>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+	<title>Actual</title>
+    <link href="@Url.Content("~/css/stylesheet.css")" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+	<h1>Your ToDo's:</h1>
+    <table>
+      <thead>
+		<tr>
+          <th>What To Do</th>
+		  <th>Due Date</th>
+		</tr>
+      </thead>
+      <tbody>  
+            @foreach (var todo in Model)
+		    {
+                <tr class= "@if(todo.IsImportant)
+					       {
+                             <text>important </text>
+					       }
+                           @if(todo.DaysRemaining <= 1)
+					       {
+                             <text>red </text>
+					       }
+                           else if(todo.DaysRemaining <= 3)
+					       {
+					         <text>orange </text>
+					       }
+                           else
+					       {
+					         <text>normal </text>
+					       }
+					       @if(todo.IsDone)
+					       {
+					         <text>done</text>
+					       }">
+				<td>@todo.Title</td>
+				<td>@todo.DueDate.ToString("dd/MM/yyyy")</td>
+                <td><div class="btn"><form action="/(@todo.Id)/done" method="post">
+                        <input type="hidden" name="Id" value="@todo.Id" />
+                        <button type="submit">@((todo.IsDone) ? "Undone" : "Done")</button>
+                </form></div></td>
+				<td><div class="btn"><form action="/(@todo.Id)/delete" method="post">
+                        <input type="hidden" name="Id" value="@todo.Id" />
+                        <button type="submit">Delete</button>
+                </form></div></td>
+				<td><div class="btn"><form action="/(@todo.Id)/archive" method="post">
+                        <input type="hidden" name="Id" value="@todo.Id" />
+                        <button type="submit">Archive</button>
+                </form></div></td>
+                </tr>
+		    }
+	  </tbody>
+    </table>
+		<form action="/add" method="get"><button type="submit" value="Add">Add new todo</button>
+		</form>
+		<form action="/archive" method="get"><button type="submit" value="Archive">View archived todo's</button>
+        </form>
+  </body>
+</html>

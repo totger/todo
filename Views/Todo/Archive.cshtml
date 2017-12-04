@@ -1,0 +1,35 @@
+﻿@model List<TodoApp.Models.Todo>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Actual</title>
+    <link href="@Url.Content("~/css/stylesheet.css")" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Archived ToDo's:</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>What To Do</th>
+          <th>Due Date</th>
+        </tr>
+      </thead>
+      <tbody>  
+            @foreach (var todo in Model)
+            {
+				<tr class= "archived @((todo.IsDone) ? "archivedDone" : string.Empty)">
+                <td>@todo.Title</td>
+                <td>@todo.DueDate.ToString("dd/MM/yyyy")</td>
+                <td><div class="btn"><form action="archive/(@todo.Id)/delete" method="post">
+                        <input type="hidden" name="Id" value="@todo.Id" />
+                        <button type="submit">Delete</button>
+                </form></div></td>
+                </tr>
+            }
+      </tbody>
+    </table>
+        <form action="../" method="get"><button class="button" type="submit" value="Add">Back to actual list</button>
+        </form>
+  </body>
+</html>

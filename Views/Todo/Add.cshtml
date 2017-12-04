@@ -1,0 +1,21 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Add new Todo </title>
+    <link href="@Url.Content("~/css/stylesheet.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+   <form action="add" method="post">
+            
+        <label>Task to add:</label>
+        <input type="text" name="Title" placeholder="New task"/> <br /> <br />
+
+        <label>Important?</label>
+        <input type="checkbox" name="isImportant" value="1"/> <br /> <br />
+
+		<label>Due Date:</label>
+		<input type="date" name="dueDate"><br />
+
+        <button type="submit"  value="Submit">Save</button>
+	</form>
+</body>
+</html>
